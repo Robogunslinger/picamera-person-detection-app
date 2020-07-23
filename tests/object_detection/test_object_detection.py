@@ -2,7 +2,7 @@ import pytest
 import os
 from distutils import dir_util
 from PIL import Image
-from pi_app.object_detection import object_detection
+from picamera_person_detection.object_detection import object_detection
 
 @pytest.fixture
 def test_folder():
