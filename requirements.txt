@@ -3,3 +3,4 @@ numpy
 picamera
 Pillow
 pytest
+ansible
