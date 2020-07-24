@@ -29,3 +29,9 @@ notebook/figure/*
 # Unzip files or folder
 *.tar.gz
 *.zip
+
+# ansible environment variable
+.env
+
+# visualstudio code environment variable
+.vscode

@@ -1,0 +1,15 @@
+- name: "Update code and run picamera person-detection app"
+  hosts: "picamera"
+  gather_facts: false
+  vars:
+    picamera_dir: "{{ PICAMERA_DIR | default('/home/pi/picamera-person-detection-app') }}"
+  tasks:
+    - name: "Clone picamera-person-detection-app"
+      git:
+        repo: 'https://github.com/Robogunslinger/picamera-person-detection-app'
+        dest: "{{ picamera_dir }}"
+        version: dev
+    - name: "Run shell command"
+      shell: . .venv/bin/activate && sh run_app.sh
+      args:
+          chdir: "{{ picamera_dir }}"
