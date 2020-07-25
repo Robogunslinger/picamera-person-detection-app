@@ -39,7 +39,7 @@ class CameraRecorder:
         # Keep recording for 10 seconds and only then write the
         # stream to disk
         try:
-            camera.wait_recording(self._duration_limit // 2)
+            self._camera.wait_recording(self._duration_limit // 2)
             with self._stream.lock:
                 # Find the first header frame in the video
                 for frame in self._stream.frames:
