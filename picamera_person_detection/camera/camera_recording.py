@@ -15,7 +15,7 @@
 # limitations under the License.
 """A picamera recording helper library that records video up to designated length
 """
-
+import io
 import picamera
 
 class CameraRecorder:
