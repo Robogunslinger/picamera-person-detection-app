@@ -51,8 +51,6 @@ class CameraRecorder:
                     output.write(self._stream.read())
         except Exception as ex:
             raise ex
-        finally:
-            self.stop_camera()
 
     def stop_camera(self):
         try:
