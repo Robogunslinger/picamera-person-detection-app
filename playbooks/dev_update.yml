@@ -3,6 +3,7 @@
   gather_facts: false
   vars:
     picamera_dir: "{{ PICAMERA_DIR | default('/home/pi/picamera-person-detection-app') }}"
+    picamera_resource_dir: "{{ picamera_dir }}/picamera_person_detection/resources"
   tasks:
     - name: "Clone picamera-person-detection-app"
       git:
