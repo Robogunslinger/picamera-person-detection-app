@@ -9,7 +9,7 @@
       git:
         repo: 'https://github.com/Robogunslinger/picamera-person-detection-app'
         dest: "{{ picamera_dir }}"
-        version: dev
+        version: debug
     - name: "Run shell command"
       shell: . .venv/bin/activate && sh run_app.sh
       args:

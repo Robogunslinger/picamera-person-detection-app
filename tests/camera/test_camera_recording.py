@@ -1,7 +1,6 @@
 import pytest
 import os
-from distutils import dir_util
-from PIL import Image
+import picamera
 from picamera_person_detection.camera import camera_recording
 from verify import verify_video, verify_image, RAW_FORMATS
 
@@ -29,7 +28,7 @@ def test_fixture_camera_recorder(camera_recorder):
     assert isinstance(camera_recorder, camera_recording.CameraRecorder)
     
 def test_record_video(tmpdir, camera_recorder, video_format, video_resolution):
-    output_path = tmpdir.join('motion.h264')
+    output_path = os.path.join(tmpdir, 'motion.h264')
     camera_recorder.start_camera()
     camera.record_video(output_path)
     camera.stop_camera()
