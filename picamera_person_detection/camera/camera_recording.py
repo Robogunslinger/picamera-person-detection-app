@@ -52,9 +52,9 @@ class CameraRecorder:
         except Exception as ex:
             raise ex
         finally:
-            self.stop_recording()
+            self.stop_camera()
 
-    def stop_recording(self):
+    def stop_camera(self):
         try:
             self._camera.stop_recording()
         except Exception as ex:

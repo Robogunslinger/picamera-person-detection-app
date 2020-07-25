@@ -31,7 +31,7 @@ def test_fixture_camera_recorder(camera_recorder):
 def test_record_video(tmpdir, camera_recorder, video_format, video_resolution):
     output_path = os.path.join(tmpdir, 'motion.h264')
     camera_recorder.start_camera()
-    camera.record_video(output_path)
-    camera.stop_camera()
+    camera_recorder.record_video(output_path)
+    camera_recorder.stop_camera()
 
     verify_video(output_path, video_format, video_resolution)
