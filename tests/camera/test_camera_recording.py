@@ -15,7 +15,7 @@ def video_resolution():
 @pytest.fixture
 def camera_recorder(video_resolution, video_format):
     pi_camera = picamera.PiCamera(resolution=video_resolution)
-    recorder = camera_recording.CameraRecorder(camera, duration_in_sec=20, format=video_format)
+    recorder = camera_recording.CameraRecorder(pi_camera, duration_in_sec=20, format=video_format)
     return recorder
 
 def test_fixture_video_format(video_format):
