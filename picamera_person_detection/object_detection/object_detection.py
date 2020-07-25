@@ -22,7 +22,6 @@ import numpy as np
 import re
 from tflite_runtime.interpreter import Interpreter
 
-
 class ObjectDetector:
     """Utility for detecting objects"""
 
@@ -30,14 +29,13 @@ class ObjectDetector:
         """Initializes ObjectDetector parameters.
 
         Args:
-            model_path:
-            label_path:
+            model_path: model file path in string
+            label_path: model label file path in string
         """
         try:
             self._labels = self.init_labels(label_path)
             self._interpreter = self.init_interpreter(model_path)
             self._input_height, self._input_width = self.init_height_width()
-
         except Exception as ex:
             print(f"Model initialization failed!")
             raise ex 
