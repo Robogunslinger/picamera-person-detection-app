@@ -51,6 +51,13 @@ class CameraRecorder:
             print(f"Failed to start recording")
             self.stop_camera()
             raise ex 
+    
+    def get_camera_stream(self):
+        '''Returns the camera stream
+        
+        Returns: the camera stream
+        '''
+        return self._stream()
 
     def record_video(self, output_path: str):
         """Record the video in the stream into disk. 
