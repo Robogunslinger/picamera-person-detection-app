@@ -57,7 +57,7 @@ class CameraRecorder:
         
         Returns: the camera stream
         '''
-        return self._stream()
+        return self._stream
 
     def record_video(self, output_path: str):
         """Record the video in the stream into disk. 

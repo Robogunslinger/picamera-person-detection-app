@@ -1,10 +1,11 @@
-from object_detection import object_detection
-
 import os
+import argparse
 from datetime import datetime
 from PIL import Image
+
 from picamera_person_detection.camera import camera_recording
 from picamera_person_detection.camera import camera_setup
+from picamera_person_detection.object_detection import object_detection
 
 CURRENT_FOLDER = os.path.dirname(os.path.abspath(__file__ ))
 
@@ -15,7 +16,12 @@ def prepare_tensorflow_model():
     object_detector = object_detection.ObjectDetector(model_path, label_path)
     return object_detector
 
-def detect_person(stream):
+def detect_person(camera):
+
+    stream = io.BytesIO()
+    camera.capture(stream, format="jpg", use_video_port=True)
+
+    stream.seek(0)
     image = Image.open(stream).convert('RGB')
 
     results = object_detector.detect_objects(image, threshold=0.4)
@@ -34,33 +40,23 @@ def run_camera_detection():
     
     object_detector = prepare_tensorflow_model()
 
-    camera = camera_setup.get_camera()
+    camera = camera_setup.Camera.get_camera()
     camera_recorder = camera_recording.CameraRecorder(camera, duration_in_sec=20, format='h264')
     camera_recorder.start_camera()
     
     try:
-        stream = camera_recorder.get_camera_stream()
         while True:
-            stream.seek(0)
-            has_person = detect_person(stream)
+            has_person = detect_person(camera)
             
             if has_person:
                 file_output_path = prepare_video_output_path(format='h264')
-                
                 camera_recorder.record_video(file_output_path)
-            else:
-                stream.seek(0)
-                stream.truncate()
     finally:
         camera_recorder.stop_camera()
 
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        '--model', help='File path of .tflite file.', required=True)
-    parser.add_argument(
-        '--labels', help='File path of labels file.', required=True)
     parser.add_argument(
         '--threshold',
         help='Score threshold for detected objects.',
@@ -70,3 +66,6 @@ def main():
     args = parser.parse_args()
 
     run_camera_detection()
+
+if __name__ == "__main__":
+    main()
