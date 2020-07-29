@@ -1,5 +1,6 @@
 import pytest
 import os
+import time
 import picamera
 from picamera_person_detection.camera import camera_recording
 from verify import verify_video, verify_image, RAW_FORMATS
@@ -15,7 +16,8 @@ def video_resolution():
 @pytest.fixture
 def camera_recorder(video_resolution, video_format):
     pi_camera = picamera.PiCamera(resolution=video_resolution)
-    recorder = camera_recording.CameraRecorder(pi_camera, duration_in_sec=20, format=video_format)
+    time.sleep(1)
+    recorder = camera_recording.CameraRecorder(pi_camera, duration_in_sec=2, format=video_format)
     yield recorder
     pi_camera.close()
 

@@ -171,6 +171,6 @@ class ObjectDetector:
                     'class_id': classes[i],
                     'score': scores[i]
                 }
-            results.append(result)
+                results.append(result)
 
         return results

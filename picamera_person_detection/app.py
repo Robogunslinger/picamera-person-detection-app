@@ -19,26 +19,26 @@ def prepare_tensorflow_model():
 def detect_person(camera):
 
     stream = io.BytesIO()
-    camera.capture(stream, format="jpg", use_video_port=True)
+    camera.capture(stream, format="jpeg", use_video_port=True)
 
     stream.seek(0)
     image = Image.open(stream).convert('RGB')
 
+    object_detector = prepare_tensorflow_model()
     results = object_detector.detect_objects(image, threshold=0.4)
     results_labels = [ object_detector.get_label_name(result['class_id']) for result in results ]
 
     if "person" in results_labels:
+        print('Detected person')
         return True
     return False
 
 def prepare_video_output_path(format='h264'):
-    utc_now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    utc_now = datetime.utcnow().strftime("%Y-%m-%d_%H%M%S")
     file_output_path = os.path.join(CURRENT_FOLDER, f"UTC{utc_now}.{format}")
     return file_output_path
 
 def run_camera_detection():
-    
-    object_detector = prepare_tensorflow_model()
 
     camera = camera_setup.Camera.get_camera()
     camera_recorder = camera_recording.CameraRecorder(camera, duration_in_sec=20, format='h264')
